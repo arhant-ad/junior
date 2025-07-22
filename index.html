@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Bhumi's Comfort Buddy</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <style>
+        :root {
+            --pink-bg: #ffe6eb;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.5s ease;
+        }
+        .fancy-title {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2); 
+            padding: 8px 12px; 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%); 
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+            transform: rotate(-2deg);
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+        .fancy-title:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            border: 2px solid white;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .period-mode {
+            background-color: var(--pink-bg);
+        }
+        .mood-selector input[type="radio"] {
+            display: none;
+        }
+        .mood-selector label {
+            transition: all 0.3s;
+        }
+        .mood-selector input[type="radio"]:checked + label {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.2));
+        }
+        .heart {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+    </head>
+    <body
+        class="min-h-[100vh] bg-gradient-to-br from-blue-50 to-purple-50 flex flex-col items-center p-2">
+        <div
+            class="w-[96vw] max-w-md bg-white rounded-3xl shadow-lg overflow-hidden my-2">
+            <!-- Header -->
+            <div
+                class="px-6 py-4 bg-gradient-to-r from-pink-400 to-purple-500 text-white text-center">
+                <h1 class="text-2xl font-bold fancy-title">Bhumi's Comfort Buddy
+                    ✨</h1>
+                <p class="opacity-90 mt-2 text-lg italic">Your personal comfort
+                    companion</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="p-4">
+                <!-- Mood Tracker -->
+                <div class="mb-8">
+                    <h2 class="text-lg font-semibold text-center mb-4">Hey
+                        Bhumi, how are you feeling today?</h2>
+                    <div class="flex justify-around mood-selector"
+                        id="moodSelector">
+                        <div class="text-center">
+                            <input type="radio" name="mood" id="happy"
+                                value="happy">
+                            <label for="happy" class="cursor-pointer block">
+                                <img src="Happy.png" alt="Happy"
+                                    class="mx-auto mb-1 rounded-full"> Happy
+                                <!---<span
+                                    class="emoji-icon text-4xl mx-auto block">😊</span>
+                                <span class="text-sm mt-1 block">Happy</span>-->
+                            </label>
+                        </div>
+                        <div class="text-center">
+                            <input type="radio" name="mood" id="tired"
+                                value="tired">
+                            <label for="tired" class="cursor-pointer block">
+                                <!-- <span
+                                    class="emoji-icon text-4xl mx-auto block">😴</span>
+                                <span class="text-sm mt-1 block">Tired</span>-->
+                                <img src="Tired.png" alt="Tired"
+                                    class="mx-auto mb-1 rounded-full"> Tired
+                            </label>
+                        </div>
+                        <div class="text-center">
+                            <input type="radio" name="mood" id="irritated"
+                                value="irritated">
+                            <label for="irritated" class="cursor-pointer block">
+                                <img src="Angry bird.png" alt="Angry Girl"
+                                    class="mx-auto mb-1 rounded-full irritated-img">
+                                <span
+                                    class="text-sm mt-1 block">Irritated</span>
+                            </label>
+                        </div>
+                        <div class="text-center">
+                            <input type="radio" name="mood" id="sad"
+                                value="sad">
+                            <label for="sad" class="cursor-pointer block">
+                                <img src="sad.png" alt="Sad Girl"
+                                    class="mx-auto mb-1 rounded-full sad-img">
+                                <!--<span
+                                    class="emoji-icon text-4xl mx-auto block">😢</span>
+                                <span class="text-sm mt-1 block">Sad</span>
+                            </label>-->
+                                <span class="text-sm mt-1 block">Sad</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Smart Suggestions -->
+                    <div
+                        class="bg-purple-50 rounded-xl p-4 mb-6 shadow-inner border-2 border-purple-100"
+                        id="suggestionsSection">
+                        <div class="flex items-center mb-3">
+                            <div
+                                class="heart w-6 h-6 bg-pink-400 rounded-full mr-2"></div>
+                            <h3
+                                class="text-lg font-semibold text-purple-700">Personalized
+                                Comfort Ideas For You 🌸</h3>
+                        </div>
+                        <div id="suggestionsContent"
+                            class="min-h-[100px] flex items-center justify-center text-center">
+                            <p class="text-center text-gray-600 italic">
+                                Select your mood to see special suggestions<br>
+                                <span class="text-xs text-purple-400">(Curated
+                                    just
+                                    for you, Bhumi)</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Reminder Section -->
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6"
+                        id="remindersSection">
+                        <h3
+                            class="text-lg font-semibold mb-3 flex items-center">
+                            <span class="w-2 h-6 bg-blue-500 mr-2"></span>
+                            Caring Reminders For You
+                        </h3>
+                        <ul class="space-y-2" id="remindersList">
+                            <!-- Filled by JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Period Mode Toggle -->
+                    <div
+                        class="flex items-center justify-between mb-6 p-3 bg-white border border-gray-200 rounded-lg">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-pink-500 mr-2"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="font-medium">Period Mode</span>
+                        </div>
+                        <label
+                            class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="periodModeToggle"
+                                class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-500"></div>
+                        </label>
+                    </div>
+
+                    <!-- Love Note -->
+                    <div class="bg-pink-50 rounded-xl p-4 mb-6">
+                        <h3
+                            class="text-lg font-semibold mb-3 flex items-center">
+                            <span class="w-2 h-6 bg-pink-500 mr-2"></span>
+                            Something Special For You 💕
+                        </h3>
+                        <p id="loveNote" class="text-gray-700 italic">You are
+                            stronger than you think and more loved than you
+                            know.
+                            Take a deep breath, you've got this!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="w-[96vw] max-w-md bg-white rounded-3xl shadow-lg p-4 mb-2">
+                <h3 class="text-lg font-semibold mb-4">Write Yourself a Loving
+                    Reminder</h3>
+                <div class="flex">
+                    <input type="text" id="newReminder"
+                        placeholder="Drink water..."
+                        class="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent">
+                    <button id="addReminderBtn"
+                        class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-r-lg transition">Add</button>
+                </div>
+            </div>
+
+            <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mood tracking and suggestions
+            const moodSelector = document.getElementById('moodSelector');
+            const suggestionsContent = document.getElementById('suggestionsContent');
+            
+            // Period mode toggle
+            const periodModeToggle = document.getElementById('periodModeToggle');
+            
+            // Reminders
+            const remindersList = document.getElementById('remindersList');
+            const newReminderInput = document.getElementById('newReminder');
+            const addReminderBtn = document.getElementById('addReminderBtn');
+            
+            // Basic reminders
+            const defaultReminders = [
+                "Bhumi, thoda paani piyo na  💧 (Compliment ke saath: Tumhari smile sabse pyari hai!)",
+                "5 deep breaths lo, bhidu  🌬️ (Compliment: Tumhari breathing bhi kitni graceful hai)",
+                "2 minute ke liye stretch karlo  🧘‍♀️ (Compliment: Itna stretch bhi koi tumhare jaisa graceful kar sakta hai)",
+                "Jo tumhe hasata hai, use text karo  😊 (Compliment: Tumhari smile dekh ke to poora din khush ho jaaye)", 
+                "Thoda healthy khaana kha lo  🍎 (Compliment: Tumhe dekh ke khud fruits bhi khush ho jaate honge)"
+            ];
+            
+            // Mood suggestions
+            const moodSuggestions = {
+                happy: {
+                    title: "Spread happiness!",
+                    content: `
+                        <div class="space-y-2">
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-yellow-500 mr-2">🎵</span>
+                                <span>Dance on: <strong>Tumhari favorite Bollywood songs</strong></span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-blue-500 mr-2">📸</span>
+                                <span>Take a cute selfie (Because you look stunning when happy!)</span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-purple-500 mr-2">💌</span>
+                                <span>Text someone: "Aaj bohot khush hoon, tum batao kaise ho?"</span>
+                            </div>
+                            <div class="text-center mt-3 text-pink-500 italic">
+                                "Khushiyan baantne se badhti hain, tumhari muskurahat to golden hai!"
+                            </div>
+                        </div>
+                    `
+                },
+                tired: {
+                    title: "Time to recharge",
+                    content: `
+                        <div class="space-y-2">
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-yellow-500 mr-2">☕</span>
+                                <span>Hydrate with: <strong>Warm herbal tea</strong></span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-blue-500 mr-2">😴</span>
+                                <span>Try a: <strong>15 minute power nap</strong></span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-purple-500 mr-2">🎧</span>
+                                <span>Listen to: <strong>Calming nature sounds</strong></span>
+                            </div>
+                        </div>
+                    `
+                },
+                irritated: {
+                    title: "Let it go",
+                    content: `
+                        <div class="space-y-2">
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-yellow-500 mr-2">💨</span>
+                                <span>Breathe: <strong>Inhale for 5s, exhale for 7s</strong></span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-blue-500 mr-2">🎵</span>
+                                <span>Listen to: <strong>Soothing instrumental music</strong></span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-purple-500 mr-2">✍️</span>
+                                <span>Write down: <strong>What's bothering you</strong></span>
+                            </div>
+                        </div>
+                    `
+                },
+                sad: {
+                    title: "Ye waqt bhi guzar jayega",
+                    content: `
+                        <div class="space-y-2">
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-yellow-500 mr-2">🍫</span>
+                                <span>Have some: <strong>Melt-in-mouth chocolate</strong></span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-blue-500 mr-2">🎬</span>
+                                <span>Watch: <strong>Tumhari favorite rom-com</strong></span>
+                            </div>
+                            <div class="flex items-start bg-white p-3 rounded-lg">
+                                <span class="text-purple-500 mr-2">📞</span>
+                                <span>Call that friend who understands your silences</span>
+                            </div>
+                            <div class="text-center mt-3 text-pink-500 italic">
+                                "Zindagi ki har mushkil ka hal hai,<br>
+                                Bas thoda sa time aur thoda sa humara pyaar chahiye<br>
+                                🫂"
+                            </div>
+                        </div>
+                    `
+                }
+            };
+            
+            // Love notes
+            const loveNotes = [
+                "Tere bin duniya adhuri,\nHar pal hai bhool bhulaiya,\nPar ek tu hai jo bhulaya na jaaye\n❤️",
+                
+                "Khushboo si hai tu hawaon mein,\nChandani si hai raaton mein,\nTere bina har lamha,\nAjeeb sa lagta hai\n🌹",
+                
+                "Palkon pe teri sapno ki chaya,\nDil mein hai bas ek hi dua,\nKhush rahe tu humesha,\nYehi hai meri arzoo\n✨",
+                
+                "Tere aane se zindagi khili,\nJaise bahar aa gayi,\nTum jiyo hazaron saal,\nHar saal ki ho navjawan\n🌸",
+                
+                "Dil ki dhadkan si ho tum,\nSaansein bankar bass gaye ho tum,\nTere bina ab jeena,\nMumkin hi nahi lagta\n💕"
+            ];
+            
+            // Initialize reminders
+            function loadReminders() {
+                remindersList.innerHTML = '';
+                let reminders = JSON.parse(localStorage.getItem('reminders')) || defaultReminders;
+                
+                reminders.forEach((reminder, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center justify-between bg-white p-3 rounded-lg';
+                    li.innerHTML = `
+                        <span>${reminder}</span>
+                        <button class="delete-reminder text-gray-400 hover:text-red-500" data-index="${index}">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    `;
+                    remindersList.appendChild(li);
+                });
+                
+                // Add delete reminder event listeners
+                document.querySelectorAll('.delete-reminder').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        deleteReminder(index);
+                    });
+                });
+            }
+            
+            // Delete reminder
+            function deleteReminder(index) {
+                let reminders = JSON.parse(localStorage.getItem('reminders')) || defaultReminders;
+                reminders.splice(index, 1);
+                localStorage.setItem('reminders', JSON.stringify(reminders));
+                loadReminders();
+            }
+            
+            // Add new reminder
+            addReminderBtn.addEventListener('click', function() {
+                const reminderText = newReminderInput.value.trim();
+                if (reminderText) {
+                    let reminders = JSON.parse(localStorage.getItem('reminders')) || defaultReminders;
+                    reminders.push(reminderText);
+                    localStorage.setItem('reminders', JSON.stringify(reminders));
+                    newReminderInput.value = '';
+                    loadReminders();
+                }
+            });
+            
+            // Period mode toggle
+            periodModeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('period-mode');
+                    document.body.classList.remove('bg-gradient-to-br', 'from-blue-50', 'to-purple-50');
+                } else {
+                    document.body.classList.remove('period-mode');
+                    document.body.classList.add('bg-gradient-to-br', 'from-blue-50', 'to-purple-50');
+                }
+            });
+            
+            // Mood selection
+            moodSelector.addEventListener('change', function(e) {
+                if (e.target.name === 'mood') {
+                    const mood = e.target.value;
+                    const suggestion = moodSuggestions[mood];
+                    
+                    if (suggestion) {
+                        suggestionsContent.innerHTML = `
+                            <h4 class="font-medium mb-2">${suggestion.title}</h4>
+                            ${suggestion.content}
+                        `;
+                    }
+                }
+            });
+            
+            // Set random love note on page load
+            document.getElementById('loveNote').textContent = loveNotes[Math.floor(Math.random() * loveNotes.length)];
+            
+            // Initialize reminders
+            loadReminders();
+            
+            // Notifications (simulated)
+            function showNotification() {
+                const messages = [
+                    "Bhumi, paani piya? 💧 (Tumhari glow bani rahe!)",
+                    "Princess, thodi der ke liye break lo na ✨ (Tumhari energy mujhe bhi chahiye!)",
+                    "Kuch accha khaya? 🥗 (Tum khana na khao to sabziyan bhi udaas ho jati hain)",
+                    "Deep breaths lo, meri jaan 🌬️ (Tumhari saans ki awaaz bhi kitni soothing hai)",
+                    "Tumhari mehnat dekh ke main vi sharmaa jau 💖",
+                    "Chalo, ek glass doodh pe lete hain 🥛 (Kyunki tumhari tarah sweet ho jayega)",
+                    "Aaj ka selfie time! 📸 (Kyunki tumhari har photo frame-worthy hoti hai)"
+                ];
+                
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-3 rounded-lg shadow-lg flex items-start';
+                notification.innerHTML = `
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>${messages[Math.floor(Math.random() * messages.length)]}</span>
+                    <button class="ml-4 text-blue-100 hover:text-white" onclick="this.parentElement.remove()">✕</button>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Remove notification after some time
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 5000);
+            }
+            
+            // Show notification every 30 mins (demo purposes)
+            showNotification();
+            setInterval(showNotification, 1000 * 60 * 30);
+        });
+    </script>
+        </body>
+    </html>
